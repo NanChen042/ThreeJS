@@ -1,3 +1,5 @@
+# Three.js——十二、MeshPhysicalMaterial清漆层、粗糙度、物理材质透光率以及折射率（结尾附代码）
+
 ## 环境贴图作用测试
 #### `MeshPhysicalMaterial`清漆层
 

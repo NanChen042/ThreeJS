@@ -1,27 +1,35 @@
-## Three.js——在模型中添加标签
+---
+title: Docs with VitePress
+editLink: true
+---
+{{ $frontmatter.title }}
+
+# 速成Three.js——一、初识Three以及基础的前端场景搭建(结尾含源码)
+
+文章：
+1. [Three——一、初识Three以及基础的前端场景搭建(结尾含源码)](https://blog.csdn.net/nanchen_J/article/details/130109054?spm=1001.2014.3001.5501)
+2. [Three——二、加强对三维空间的认识](https://blog.csdn.net/nanchen_J/article/details/130319637?spm=1001.2014.3001.5501)
+3. [Three——三、动画执行、画布大小、渲染帧率和相机适配体验](https://blog.csdn.net/nanchen_J/article/details/130489240?spm=1001.2014.3001.5501)
+4. [Three——四、几何体、高光网络材质、锯齿模糊以及GUI库的使用](https://blog.csdn.net/nanchen_J/article/details/130525430?spm=1001.2014.3001.5501)
+5. [Three——五、点线模型对象、三角形概念、几何体顶点位置，顶点索引、法线以及对几何体进行旋转缩放和平移](https://blog.csdn.net/nanchen_J/article/details/130576232?spm=1001.2014.3001.5501)
+
 给模型添加标签时需要准标签部分
-```html
-  <div class="container">
-    <div class="3Dtitle"></div>
-  </div>
-```
-我们这里将`<div class="container"></div>`用`container`代替，`<div class="3Dtitle"></div>`用`3Dtitle`表示
+从本章开始会从最初的搭建场景模型开始到插入精灵图部分结尾，便于刚入门three而不知如何去学起的前端工程师去学习，这里可以学到场景搭建的基础知识，引入外部模型以及动画，对模型添加标签以及优化模型方案等。详情可查找[Three.js教程](http://www.webgl3d.cn/)
 
-`container`就是用来放场景已经模型部分，`3Dtitle`用来放标签
-
-
-这里会从最初的搭建场景模型开始到放入标签结束，便于大家理解
 
 搭建3D场景需要认识一下`场景Scene`、`相机Camera`、`渲染器Renderer`三个概念，看张图片
-![](http://www.webgl3d.cn/threejs/%E5%9C%BA%E6%99%AF%E7%9B%B8%E6%9C%BA%E6%B8%B2%E6%9F%93%E5%99%A8.png)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/995511d99596549757e8e75b52aa9130_47a025488d7e46ce8edca2d4eb05117b-1.png)
+
 
 在创建模型在页面中显示出来时我们需要先创建一个场景(这里所用到的东西都在THREE中，直接`new Three.(属性)`就可以了)  
 ```js
-
+// 创建一个场景
+let scene = new Three.Scene()
 ```
 
 ## 物体形状：几何体Geometry
-![](http://www.webgl3d.cn/threejs/%E5%87%A0%E4%BD%95%E4%BD%93Geometry.svg)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/d2de35b412d1a96ab0133eef330d4197_dd967c9f00314aa4828b1ab919e12e93.png)
+
 例如：
 ```js
 const geometry = new THREE.BoxGeometry(100, 100, 100); 
@@ -30,7 +38,8 @@ const geometry = new THREE.BoxGeometry(100, 100, 100);
 ## 物体外观：材质Material
 如果你想定义物体的外观效果，比如颜色，就需要通过材质Material相关的API实现。
 threejs不同材质渲染效果不同，下面就以threejs最简单的网格基础材质MeshBasicMaterial (opens new window)为例给大家实现一个红色材质效果。
-![](http://www.webgl3d.cn/threejs/%E6%9D%90%E8%B4%A8Material.svg)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/d2fc6d6da11471bb12fccba1459e848b_2957ecb5f95744478f41f16373cc762d.png)
+
 ```js
 //创建一个材质对象Material
 const material = new THREE.MeshBasicMaterial({
@@ -91,7 +100,8 @@ camera.lookAt(0, 0, 0); //坐标原点
 camera.lookAt(0, 10, 0);  //y轴上位置10
 camera.lookAt(mesh.position);//指向mesh对应的位置
 ```
-![](http://www.webgl3d.cn/threejs/%E7%9B%B8%E6%9C%BA%E4%BD%8D%E7%BD%AE%E5%92%8C%E7%9B%AE%E6%A0%87.png)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/613410420e365d9e1383a0311598a4c0_2b29a989f0f647c2a067143f2b588a84.png)
+
 
 ## 判断相机相对三维场景中长方体位置
 你可以把三维场景中长方体`mesh`想象为一个房间，然后根据相机位置和长方体位置尺寸对比，判断两者相对位置。你可以发现设置相机坐标(200, 200, 200)，位于长方体外面一处位置。
@@ -105,12 +115,14 @@ mesh.position.set(0,10,0);
 // 相机位置xyz坐标：200, 200, 200
 camera.position.set(200, 200, 200); 
 ```
-![](http://www.webgl3d.cn/threejs/%E7%9B%B8%E6%9C%BA%E4%BD%8D%E7%BD%AE%E5%92%8C%E7%9B%AE%E6%A0%87.png)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/bccee1a50ca25571a83b0bc8b1564fac_3df3353110bb432aa2603cbf101fdcb2.png)
+
 说简单一些就是在一个三维场景中，有一个网络模型的坐标，还有一个是相机的坐标
 
 ## *透视投影相机PerspectiveCamera：视锥体
 透视投影相机的四个参数fov, aspect, near, far构成一个四棱台3D空间，被称为视锥体，只有视锥体之内的物体，才会渲染出来，视锥体范围之外的物体不会显示在Canvas画布上。下面这张图解释的已经很清晰了，主要的意思就是这个属性会把相机视为一个锥体，如果你放大缩小的话也只会显示锥体里面的模型样子
-![](http://www.webgl3d.cn/threejs/%E8%A7%86%E9%94%A5%E4%BD%93.png)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/5bda1f451ac63e2a34ab14ab778e8574_4afc18ebd63c436492ae44b7b738e24f.png)
+
 ```js
 // width和height用来设置Three.js输出的Canvas画布尺寸(像素px)
 const width = 800; //宽度
@@ -134,7 +146,7 @@ PerspectiveCamera( fov, aspect, near, far )
 
 # 渲染器
 生活中如果有了景物和相机，那么如果想获得一张照片，就需要你拿着相机，按一下，咔，完成拍照。对于threejs而言，如果完成“咔”这个拍照动作，就需要一个新的对象，也就是WebGL渲染器`WebGLRenderer`
-![](http://www.webgl3d.cn/threejs/%E5%9C%BA%E6%99%AF%E7%9B%B8%E6%9C%BA%E6%B8%B2%E6%9F%93%E5%99%A8.png)
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/e248010dc1cc534a4faf94302c0f222f_bf9d5da6ee0f428b9e5eabd437dba260.png)
 所以想要生成一张渲染在浏览器中的`照片`，就需要模型，相机以及渲染器
 
 ## WebGL渲染器WebGLRenderer
@@ -230,7 +242,7 @@ onMounted(() => {
     const geometry = new THREE.BoxGeometry(100, 100, 100);
     // 材质
     const material = new THREE.MeshBasicMaterial({
-      color: 0x51efe4, //0x51efe4设置材质颜色为红色
+      color: 0x51efe4, //0x51efe4设置材质颜色
     });
     // 网络模型
     const mesh = new THREE.Mesh(geometry, material);
@@ -255,56 +267,4 @@ onMounted(() => {
 
 ```
 效果展示:
-![](./tutieshi_636x502_3s.gif)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1. 首先引入必要的`three`
-   ```js
-   import * as THREE from "three";
-   import { ref,reactive,onMounted } from "vue";
-   ```
+![Alt text](assets/three01%E5%9C%BA%E6%99%AF%E6%90%AD%E5%BB%BA/03f88bcae1b48b1b443b8e6ae1861392_6f896519a7e04deb8499d0c18d60e9ec.gif)
